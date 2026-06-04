@@ -1,0 +1,69 @@
+/*
+ * Registers.h
+ *
+ *  Created on: Jun 3, 2026
+ *      Author: libak
+ */
+
+#ifndef REGISTERS_H_
+#define REGISTERS_H_
+#include <stdint.h>
+//Base addresses  RCC APB2
+#define GPIOA_BASE      0x40020000U
+#define RCC_BASE        0x40023800U // this is the power block
+#define USART2_BASE		0x40004400U
+#define SYSCFG_BASE		0x40013800U //
+#define EXTI_BASE 		0x40013C00U
+#define NVIC_BASE		0xE000E000U
+#define ADC_BASE		0x40012000U
+// This macro handles the pointer casting and the 0x30 offset automatically
+#define RCC_APB1ENR 	  *(volatile uint32_t *) (RCC_BASE + 0x40U)
+#define RCC_APB2ENR 	  *(volatile uint32_t *) (RCC_BASE + 0x44U)
+#define RCC_AHB1ENR   	  *(volatile uint32_t *)(RCC_BASE + 0x30U)
+
+//ADC
+#define ADC_SQR1 *(volatile uint32_t *) (ADC_BASE+0x2CU)
+#define ADC_CR2  *(volatile uint32_t *) (ADC_BASE+0x08)
+#define ADC_SR1  *(volatile uint32_t *) (ADC_BASE) // status register
+#define ADC_DR1  *(volatile uint32_t *) (ADC_BASE+0x4C) // data register
+#define ADC_SQR3 *(volatile uint32_t *) (ADC_BASE+0x34)
+
+// interrupts
+#define SYSCFG_EXTICR2  *(volatile uint32_t *)(SYSCFG_BASE + 0x0C)
+#define EXTI_FTSR  		*(volatile uint32_t *)(EXTI_BASE + 0x0C)
+#define EXTI_IMR  		*(volatile uint32_t *)(EXTI_BASE + 0x00)
+#define NVIC_ISER0  	*(volatile uint32_t *) (0xE000E100) // exti4 and exti9_5 live in pins 10 and 23.  Interrupt Set-Enable Registers have 0-31 so they both fall in the realm
+#define EXTI_PR			*(volatile uint32_t *) (EXTI_BASE +0x14)
+
+//Turns internal Pull-up or Pull-down resistors on/off
+#define GPIOA_PUPDR   *(volatile uint32_t *)(GPIOA_BASE + 0x0CU)
+//Input Data Register (Reads voltage coming into pins)
+#define GPIOA_IDR     *(volatile uint32_t *) (GPIOA_BASE + 0x10U)
+//Sets pin modes (Input, Output, Alternate Function)
+#define GPIOA_MODER   *(volatile uint32_t *) (GPIOA_BASE + 0x00U)
+//Output Data Register (Sends voltage out to pins)
+#define GPIOA_ODR	  *(volatile uint32_t *) (GPIOA_BASE + 0x14U)
+//Alternate Function Low (Routes internal engines to Pins 0–7
+#define GPIOA_AFRL    *(volatile uint32_t *) (GPIOA_BASE + 0x20U)
+//Alternate Function High (Routes internal engines to Pins 8–15)
+#define GPIOA_AFRH    *(volatile uint32_t *) (GPIOA_BASE + 0x24U)
+#define GPIOA_OTYPER  *(volatile uint32_t *) (GPIOA_BASE + 0x04U)
+#define GPIOA_OSPEEDR *(volatile uint32_t *) (GPIOA_BASE +0x08)
+//Uart offsets
+
+//Status Register (Checks if the hardware is busy or empty)
+#define USART2_SR  *(volatile uint32_t *) (USART2_BASE + 0x00U)
+//Data Register (The mailbox slot where you load characters)
+#define USART2_DR  *(volatile uint32_t *) (USART2_BASE + 0x04U)
+//Baud Rate Register (Controls transmission speed)
+#define USART2_BRR *(volatile uint32_t *) (USART2_BASE + 0x08U)
+//Control Register 1 (The main power and pin enable dashboard
+#define USART2_CR1 *(volatile uint32_t *) (USART2_BASE + 0x0CU)
+//Control Register 2 (Advanced layout options, like stop bits)
+#define USART2_CR2 *(volatile uint32_t *) (USART2_BASE + 0x10U)
+//Control Register 3 (Advanced system features, like DMA)
+#define USART2_CR3 *(volatile uint32_t *) (USART2_BASE + 0x14U)
+
+
+#endif /* REGISTER_H_ */
+

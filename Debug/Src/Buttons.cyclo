@@ -1,0 +1,4 @@
+../Src/Buttons.c:11:6:init_clock	1
+../Src/Buttons.c:15:14:read_potentiometer	2
+../Src/Buttons.c:28:6:potention_meter_init	1
+../Src/Buttons.c:43:6:init_buttons	1
