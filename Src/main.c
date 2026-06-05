@@ -21,11 +21,19 @@
 #include "Buttons.h"
 #include "Interrupt.h"
 #include "Delay.h"
+#include "UART.h"
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
+
+void send_midi_cc(uint8_t control_num, uint8_t value)
+{
+    uart_send_byte(0xB0);       // Status Byte: CC on Channel 1
+    uart_send_byte(control_num); // Which digital knob/slider in your DAW
+    uart_send_byte(value);       // Position value (0 to 127)
+}
 
 int main(void)
 {
@@ -34,9 +42,26 @@ int main(void)
 	init_interrupt();
 	init_buttons();
 	potention_meter_init();
-	while(1)
-	{
-		read_potentiometer();
-		delay_cycles(10000);
-	}
+	init_uart();
+	// 2. State Tracking Variables (Prevents data spamming)
+	    uint8_t last_midi_val = 0;
+
+	    while(1)
+	    {
+	        // --- POTENTIOMETER TRACKING ---
+	    	uart_send_byte('*');               // Sends a visible, printable text asterisk!
+	        uint16_t current_adc = read_potentiometer();
+
+	        // Scale your 12-bit ADC (0-4095) down to 7-bit MIDI (0-127)
+	        uint8_t current_midi_val = (current_adc >> 5);
+
+	        // Only send data if the knob actually moved to a new MIDI increment
+	        // This acts as a software filter against electrical noise
+	        if (current_midi_val != last_midi_val)
+	        {
+	            send_midi_cc(1, current_midi_val); // Map to MIDI Controller CC #1
+	            uart_send_byte('*');               // Sends a visible, printable text asterisk!
+	            last_midi_val = current_midi_val;
+	        }
+	    }
 }

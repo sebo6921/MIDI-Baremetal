@@ -8,6 +8,7 @@ C_SRCS += \
 ../Src/Buttons.c \
 ../Src/Delay.c \
 ../Src/Interrupt.c \
+../Src/UART.c \
 ../Src/main.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c 
@@ -16,6 +17,7 @@ OBJS += \
 ./Src/Buttons.o \
 ./Src/Delay.o \
 ./Src/Interrupt.o \
+./Src/UART.o \
 ./Src/main.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o 
@@ -24,6 +26,7 @@ C_DEPS += \
 ./Src/Buttons.d \
 ./Src/Delay.d \
 ./Src/Interrupt.d \
+./Src/UART.d \
 ./Src/main.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d 
@@ -36,7 +39,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/Buttons.cyclo ./Src/Buttons.d ./Src/Buttons.o ./Src/Buttons.su ./Src/Delay.cyclo ./Src/Delay.d ./Src/Delay.o ./Src/Delay.su ./Src/Interrupt.cyclo ./Src/Interrupt.d ./Src/Interrupt.o ./Src/Interrupt.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/Buttons.cyclo ./Src/Buttons.d ./Src/Buttons.o ./Src/Buttons.su ./Src/Delay.cyclo ./Src/Delay.d ./Src/Delay.o ./Src/Delay.su ./Src/Interrupt.cyclo ./Src/Interrupt.d ./Src/Interrupt.o ./Src/Interrupt.su ./Src/UART.cyclo ./Src/UART.d ./Src/UART.o ./Src/UART.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

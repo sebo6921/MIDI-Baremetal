@@ -1,0 +1,2 @@
+../Src/UART.c:8:6:init_uart	1
+../Src/UART.c:20:6:uart_send_byte	2
