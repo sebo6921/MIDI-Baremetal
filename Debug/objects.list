@@ -3,6 +3,7 @@
 "./Src/Interrupt.o"
 "./Src/UART.o"
 "./Src/main.o"
+"./Src/ringBuffer.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
 "./Startup/startup_stm32f446retx.o"

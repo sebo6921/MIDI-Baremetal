@@ -8,10 +8,16 @@
 #ifndef REGISTERS_H_
 #define REGISTERS_H_
 #include <stdint.h>
+
 //Base addresses  RCC APB2
 #define GPIOA_BASE      0x40020000U
+#define GPIOC_BASE		0x40020800U
+#define GPIOB_BASE		0x40020400U
+#define GPIOB_MODER *(volatile uint32_t *) (GPIOB_BASE + 0x00U)
+#define GPIOB_AFRH *(volatile uint32_t *) (GPIOB_BASE + 0x24U)
+
 #define RCC_BASE        0x40023800U // this is the power block
-#define USART2_BASE		0x40004400U
+#define USART3_BASE		0x40004800U
 #define SYSCFG_BASE		0x40013800U //
 #define EXTI_BASE 		0x40013C00U
 #define NVIC_BASE		0xE000E000U
@@ -49,20 +55,36 @@
 #define GPIOA_AFRH    *(volatile uint32_t *) (GPIOA_BASE + 0x24U)
 #define GPIOA_OTYPER  *(volatile uint32_t *) (GPIOA_BASE + 0x04U)
 #define GPIOA_OSPEEDR *(volatile uint32_t *) (GPIOA_BASE +0x08)
-//Uart offsets
+
+//GPIOC
+#define GPIOC_PUPDR   *(volatile uint32_t *)(GPIOC_BASE + 0x0CU)
+//Input Data Register (Reads voltage coming into pins)
+#define GPIOC_IDR     *(volatile uint32_t *) (GPIOC_BASE + 0x10U)
+//Sets pin modes (Input, Output, Alternate Function)
+#define GPIOC_MODER   *(volatile uint32_t *) (GPIOC_BASE + 0x00U)
+//Output Data Register (Sends voltage out to pins)
+#define GPIOC_ODR	  *(volatile uint32_t *) (GPIOC_BASE + 0x14U)
+//Alternate Function Low (Routes internal engines to Pins 0–7
+#define GPIOC_AFRL    *(volatile uint32_t *) (GPIOC_BASE + 0x20U)
+//Alternate Function High (Routes internal engines to Pins 8–15)
+#define GPIOC_AFRH    *(volatile uint32_t *) (GPIOC_BASE + 0x24U)
+#define GPIOC_OTYPER  *(volatile uint32_t *) (GPIOC_BASE + 0x04U)
+#define GPIOC_OSPEEDR *(volatile uint32_t *) (GPIOC_BASE +0x08)
+
+
 
 //Status Register (Checks if the hardware is busy or empty)
-#define USART2_SR  *(volatile uint32_t *) (USART2_BASE + 0x00U)
+#define USART3_SR  *(volatile uint32_t *) (USART3_BASE + 0x00U)
 //Data Register (The mailbox slot where you load characters)
-#define USART2_DR  *(volatile uint32_t *) (USART2_BASE + 0x04U)
+#define USART3_DR  *(volatile uint32_t *) (USART3_BASE + 0x04U)
 //Baud Rate Register (Controls transmission speed)
-#define USART2_BRR *(volatile uint32_t *) (USART2_BASE + 0x08U)
+#define USART3_BRR *(volatile uint32_t *) (USART3_BASE + 0x08U)
 //Control Register 1 (The main power and pin enable dashboard
-#define USART2_CR1 *(volatile uint32_t *) (USART2_BASE + 0x0CU)
+#define USART3_CR1 *(volatile uint32_t *) (USART3_BASE + 0x0CU)
 //Control Register 2 (Advanced layout options, like stop bits)
-#define USART2_CR2 *(volatile uint32_t *) (USART2_BASE + 0x10U)
+#define USART3_CR2 *(volatile uint32_t *) (USART3_BASE + 0x10U)
 //Control Register 3 (Advanced system features, like DMA)
-#define USART2_CR3 *(volatile uint32_t *) (USART2_BASE + 0x14U)
+#define USART3_CR3 *(volatile uint32_t *) (USART3_BASE + 0x14U)
 
 
 #endif /* REGISTER_H_ */

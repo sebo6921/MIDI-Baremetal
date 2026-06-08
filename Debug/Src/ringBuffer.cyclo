@@ -1,0 +1,8 @@
+../Src/ringBuffer.c:19:15:ringBuffer_create	1
+../Src/ringBuffer.c:34:6:ringBuffer_destroy	2
+../Src/ringBuffer.c:45:6:ringBuffer_full	2
+../Src/ringBuffer.c:54:6:ringBuffer_empty	2
+../Src/ringBuffer.c:68:6:ringBuffer_pop	3
+../Src/ringBuffer.c:89:6:ringBuffer_push	3
+../Src/ringBuffer.c:107:20:__disable_irq	1
+../Src/ringBuffer.c:111:20:__enable_irq	1

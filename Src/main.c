@@ -16,10 +16,10 @@
  ******************************************************************************
  */
 
+#include <InterruptButtons.h>
 #include <stdint.h>
 #include "Registers.h"
 #include "Buttons.h"
-#include "Interrupt.h"
 #include "Delay.h"
 #include "UART.h"
 
@@ -35,21 +35,24 @@ void send_midi_cc(uint8_t control_num, uint8_t value)
     uart_send_byte(value);       // Position value (0 to 127)
 }
 
-int main(void)
+void initialisation()
 {
-    /* Loop forever */
 	init_clock();
 	init_interrupt();
 	init_buttons();
 	potention_meter_init();
 	init_uart();
+}
+
+int main(void)
+{
+    /* Loop forever */
 	// 2. State Tracking Variables (Prevents data spamming)
 	    uint8_t last_midi_val = 0;
 
 	    while(1)
 	    {
-	        // --- POTENTIOMETER TRACKING ---
-	    	uart_send_byte('*');               // Sends a visible, printable text asterisk!
+
 	        uint16_t current_adc = read_potentiometer();
 
 	        // Scale your 12-bit ADC (0-4095) down to 7-bit MIDI (0-127)

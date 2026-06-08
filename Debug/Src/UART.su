@@ -1,2 +1,2 @@
-../Src/UART.c:8:6:init_uart	4	static
-../Src/UART.c:20:6:uart_send_byte	16	static
+../Src/UART.c:13:6:init_uart	4	static
+../Src/UART.c:43:6:uart_send_byte	16	static
