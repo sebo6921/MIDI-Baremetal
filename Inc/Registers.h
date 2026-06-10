@@ -25,7 +25,9 @@
 // This macro handles the pointer casting and the 0x30 offset automatically
 #define RCC_APB1ENR 	  *(volatile uint32_t *) (RCC_BASE + 0x40U)
 #define RCC_APB2ENR 	  *(volatile uint32_t *) (RCC_BASE + 0x44U)
-#define RCC_AHB1ENR   	  *(volatile uint32_t *)(RCC_BASE + 0x30U)
+#define RCC_AHB1ENR   	  *(volatile uint32_t *) (RCC_BASE + 0x30U)
+#define RCC_CFGR 		  *(volatile uint32_t *) (RCC_BASE + 0x08U)
+#define RCC_PLLCFGR  	  *(volatile uint32_t *) (RCC_BASE + 0x04U)
 
 //ADC
 #define ADC_SQR1 *(volatile uint32_t *) (ADC_BASE+0x2CU)
@@ -39,7 +41,10 @@
 #define EXTI_FTSR  		*(volatile uint32_t *)(EXTI_BASE + 0x0C)
 #define EXTI_IMR  		*(volatile uint32_t *)(EXTI_BASE + 0x00)
 #define NVIC_ISER0  	*(volatile uint32_t *) (0xE000E100) // exti4 and exti9_5 live in pins 10 and 23.  Interrupt Set-Enable Registers have 0-31 so they both fall in the realm
+#define NVIC_ISER1  	*(volatile uint32_t *) (0xE000E104) //uart3 interrupt live in pins 39 iser1 32 - 63
+
 #define EXTI_PR			*(volatile uint32_t *) (EXTI_BASE +0x14)
+#define UART3_INTERRUPT *(volatile uint32_t *) (0x000000DC) // uart3 vector interrrupt address
 
 //Turns internal Pull-up or Pull-down resistors on/off
 #define GPIOA_PUPDR   *(volatile uint32_t *)(GPIOA_BASE + 0x0CU)

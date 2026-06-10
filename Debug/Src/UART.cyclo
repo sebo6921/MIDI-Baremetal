@@ -1,2 +1,6 @@
-../Src/UART.c:13:6:init_uart	1
-../Src/UART.c:43:6:uart_send_byte	2
+../Inc/ringBuffer.h:35:20:__disable_irq	1
+../Inc/ringBuffer.h:39:20:__enable_irq	1
+../Src/UART.c:17:6:init_uart	1
+../Src/UART.c:51:6:uart_send_byte	1
+../Src/UART.c:58:6:uart_send_string	4
+../Src/UART.c:78:6:USART3_IRQHandler	4

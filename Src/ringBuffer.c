@@ -5,9 +5,7 @@
  *      Author: libak
  */
 #include "ringBuffer.h"
-// this is a stic pool use this to avoid malloc and free
-// Size = size of the hidden struct pointer + your custom byte slots
-#define RING_BUFFER_MEMORY_SIZE(capacity) (sizeof(size_t)*4 + (capacity))
+
 struct ringBuffer_t{
 	uint8_t *array;
 	size_t tail;
@@ -100,14 +98,4 @@ void ringBuffer_push(uint8_t obj, ringBuffer_t* rb)
 	return;
 }
 
-/*
-AVOIDING IMPORTING THE STM32XXX.
- */
 
-static inline void __disable_irq(void) {
-    __asm volatile ("cpsid i" : : : "memory");
-}
-
-static inline void __enable_irq(void) {
-    __asm volatile ("cpsie i" : : : "memory");
-}

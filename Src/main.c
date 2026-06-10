@@ -38,20 +38,27 @@ void send_midi_cc(uint8_t control_num, uint8_t value)
 void initialisation()
 {
 	init_clock();
-	init_interrupt();
+	init_interrupt_clocks();
+	init_interrupt_buttons();
+	init_interrupt_vector_table_bit();
 	init_buttons();
 	potention_meter_init();
+
 	init_uart();
 }
 
 int main(void)
 {
+	initialisation();
     /* Loop forever */
 	// 2. State Tracking Variables (Prevents data spamming)
 	    uint8_t last_midi_val = 0;
 
+
 	    while(1)
 	    {
+	        uart_send_string("hHello World\r\n");               // Sends a visible, printable text asterisk!
+
 
 	        uint16_t current_adc = read_potentiometer();
 
@@ -62,8 +69,7 @@ int main(void)
 	        // This acts as a software filter against electrical noise
 	        if (current_midi_val != last_midi_val)
 	        {
-	            send_midi_cc(1, current_midi_val); // Map to MIDI Controller CC #1
-	            uart_send_byte('*');               // Sends a visible, printable text asterisk!
+	            //send_midi_cc(1, current_midi_val); // Map to MIDI Controller CC #1
 	            last_midi_val = current_midi_val;
 	        }
 	    }

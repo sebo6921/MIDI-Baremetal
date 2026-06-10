@@ -1,6 +1,7 @@
 "./Src/Buttons.o"
+"./Src/Clock.o"
 "./Src/Delay.o"
-"./Src/Interrupt.o"
+"./Src/InterruptButtons.o"
 "./Src/UART.o"
 "./Src/main.o"
 "./Src/ringBuffer.o"

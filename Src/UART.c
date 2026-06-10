@@ -6,6 +6,13 @@
  */
 #include "Registers.h"
 #include "ringBuffer.h"
+#include "Clock.h"
+
+#define UART3_TX_CAPACITY 64
+
+// 1. Permanently allocate raw bytes in RAM for our encapsulated container
+static uint8_t uart3_tx_pool[RING_BUFFER_MEMORY_SIZE(UART3_TX_CAPACITY)];
+static ringBuffer_t *uart3_tx_buffer = NULL;
 
 void init_uart()
 {
@@ -31,21 +38,61 @@ void init_uart()
     GPIOC_PUPDR |=  (1U << (5 * 2));       // Pull-up active
 
     // 4. Configure USART3 Parameters
-    USART3_BRR = 0x683;                    // Baud rate configuration
+    USART3_BRR = 0x008B;
     USART3_CR1 |= (1U << 13);              // UE: USART Enable
     USART3_CR1 |= (1U << 3);               // TE: Transmitter Enable
     USART3_CR1 |= (1U << 2);               // RE: Receiver Enable
+
+    // 2. Clear pointer to act as our safe API handle
+    uart3_tx_buffer = ringBuffer_create(uart3_tx_pool, UART3_TX_CAPACITY);
+
 }
 
 void uart_send_byte(uint8_t data)
 {
-	// Wait until the Transmit Data Register Empty (TXE) flag is set
-	    // TXE is Bit 7 in the Status Register (USART2_SR)
-	    while (!(USART3_SR & (1U << 7)))
-	    {
-	        // Do nothing until the hardware is ready for the next byte
-	    }
+	 ringBuffer_push(data, uart3_tx_buffer);
 
-	    // Stuff the byte into the mailbox slot
-	    USART3_DR = data;
+
 }
+
+void uart_send_string(const char *str) {
+	while (!ringBuffer_empty(uart3_tx_buffer))
+	{// wait until the transmitting bufer is empty
+	}
+	__disable_irq();
+    while (*str) {
+        uart_send_byte((uint8_t)*str);
+        str++;
+    }
+    __enable_irq();
+    // 2. Check if the TXEIE (Bit 7) inside USART3_CR1 is currently turned off
+    	 	// TXE is Bit 7 in the Status Register (USART2_SR)
+    	    if ((USART3_CR1 & (1U << 7)) == 0)
+    	    {
+    	    	// 3. Flip TXEIE to 1. Because the hardware transmission register is empty,
+    			// this instantly wakes up the hardware and fires the USART3_IRQHandler!
+    			USART3_CR1 |= (1U << 7);
+    	    }
+}
+
+void USART3_IRQHandler()
+{
+	// check if usart3 sr is empty meaning no data in there
+	// and  if the interrupt is enabled
+	if (USART3_SR & (1U << 7) && USART3_CR1 & (1U << 7))
+	{
+		uint8_t outdata;
+		//if success meaning we popped into outdata we write the value into the dr register
+		// wiriting to dr reg the txe bit is cleared
+		if (ringBuffer_pop(uart3_tx_buffer, &outdata)){
+
+			USART3_DR = outdata;
+
+
+	}else{
+		// clear the interrupt bit or else it will keep triggering
+		 USART3_CR1 &= ~(1U << 7);
+	}
+	}
+}
+

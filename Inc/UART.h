@@ -10,5 +10,6 @@
 
 void init_uart();
 void uart_send_byte(uint8_t data);
-
+void USART3_IRQHandler();
+void uart_send_string(const char *str);
 #endif /* UART_H_ */
