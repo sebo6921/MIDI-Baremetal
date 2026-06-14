@@ -2,6 +2,7 @@
 "./Src/Clock.o"
 "./Src/Delay.o"
 "./Src/InterruptButtons.o"
+"./Src/PotentioMeter.o"
 "./Src/UART.o"
 "./Src/main.o"
 "./Src/ringBuffer.o"

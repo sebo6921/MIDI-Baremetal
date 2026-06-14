@@ -58,9 +58,9 @@ Reset_Handler:
   ldr   r0, =_estack
   mov   sp, r0          /* set stack pointer */
 /* Call the clock system initialization function.*/
-/*
+
   bl  SystemInit
-*/
+
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
   ldr r1, =_edata
@@ -536,6 +536,6 @@ g_pfnVectors:
 	.weak	FMPI2C1_error_IRQHandler
 	.thumb_set FMPI2C1_error_IRQHandler,Default_Handler
 
-	//.weak	SystemInit
+	.weak	SystemInit
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

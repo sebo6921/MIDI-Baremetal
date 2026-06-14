@@ -7,21 +7,26 @@
 
 #include "Registers.h"
 #include "Delay.h"
-
+#include "UART.h"
+// we have programmed PB4 and PA7 and PA8 as buttons for this MIDI
 
 void init_interrupt_buttons()
 {
-	// 1. Force GPIOA Pin 4 and Pin 7 into Input Mode (00)
-	GPIOA_MODER &= ~(3U << (4 * 2)); // Clear bits 9:8 to set PA4 to Input
-	GPIOA_MODER &= ~(3U << (7 * 2)); // Clear bits 15:14 to set PA7 to Input
-
-	// 2. Map EXTI4 and EXTI7 lines specifically to Port A
+	// SYSCFG_EXTICR2 maps to bits 4-7
+	// SYSCFG_EXTICR3 maps to bits 8-11
+	// EXTI7 == PA7 lies on bit 12-15 so need clear them
 	SYSCFG_EXTICR2 &= ~(0xF << 0);  // Clear bits 3:0 to map EXTI4 to Port A
-	SYSCFG_EXTICR2 &= ~(0xF << 12); // Clear bits 15:12 to map EXTI7 to Port A
+	SYSCFG_EXTICR2 |= (0x01  << 0); //  set bits 0:3 to 0001 to map EXTI4 to Port B
 
-	EXTI_FTSR |= (1 << 4) | (1 << 7); // activating the  exti 4 and 7
+	SYSCFG_EXTICR2 &= ~(0xF << 12); // Clear bits 15:12 and set bits 12:15 to 0000 to map EXTI7 to Port A
 
-	EXTI_IMR |= (1<<4) |(1<<7);
+	SYSCFG_EXTICR3 &= ~(0xF << 0); //  Clear bits 0:3 and set bits 0:3 to 0000 to map EXTI8 to Port B
+
+	//tells the hardware to watch for a falling edge signal on Lines 4, 7, and 8.
+	EXTI_FTSR |= (1 << 4) | (1 << 7) | (1 << 8);
+
+	//unmasks (enables/unmutes) the interrupt channels for Lines 4, 7, and 8.
+	EXTI_IMR |= (1<<4) |(1<<7) | (1 << 8);
 }
 void init_interrupt_vector_table_bit()
 {
@@ -34,7 +39,7 @@ void init_interrupt_clocks()
 	RCC_APB2ENR |= (1U<<14); // turn on the clock for the interrupt
 }
 
-void EXTI4_IRQHandler()
+void EXTI4_IRQHandler( )
 {
 	 if ((EXTI_PR & (1 << 4)))
 		{
@@ -46,11 +51,19 @@ void EXTI4_IRQHandler()
 
 void EXTI9_5_IRQHandler()
 {
+	// having print statments inside here will lock up program
 	if((EXTI_PR & (1 << 7)))
 		{
 			EXTI_PR |= (1<<7);
 			GPIOA_ODR ^= (1 << 5);  // Turn ON onboard LED
 			delay_cycles(320000);
+
 		}
+	if((EXTI_PR & (1 << 8)))
+			{
+				EXTI_PR |= (1<<8);
+				GPIOA_ODR ^= (1 << 5);  // Turn ON onboard LED
+				delay_cycles(320000);
+			}
 }
 

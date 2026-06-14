@@ -22,7 +22,7 @@
 #define EXTI_BASE 		0x40013C00U
 #define NVIC_BASE		0xE000E000U
 #define ADC_BASE		0x40012000U
-// This macro handles the pointer casting and the 0x30 offset automatically
+
 #define RCC_APB1ENR 	  *(volatile uint32_t *) (RCC_BASE + 0x40U)
 #define RCC_APB2ENR 	  *(volatile uint32_t *) (RCC_BASE + 0x44U)
 #define RCC_AHB1ENR   	  *(volatile uint32_t *) (RCC_BASE + 0x30U)
@@ -37,13 +37,14 @@
 #define ADC_SQR3 *(volatile uint32_t *) (ADC_BASE+0x34)
 
 // interrupts
-#define SYSCFG_EXTICR2  *(volatile uint32_t *)(SYSCFG_BASE + 0x0C)
-#define EXTI_FTSR  		*(volatile uint32_t *)(EXTI_BASE + 0x0C)
-#define EXTI_IMR  		*(volatile uint32_t *)(EXTI_BASE + 0x00)
+#define SYSCFG_EXTICR2  *(volatile uint32_t *) (SYSCFG_BASE + 0x0C)
+#define SYSCFG_EXTICR3  *(volatile uint32_t *) (SYSCFG_BASE + 0x10) // this controls bits 8-11 - since we use PB8 we need this
+#define EXTI_FTSR  		*(volatile uint32_t *) (EXTI_BASE + 0x0C)
+#define EXTI_IMR  		*(volatile uint32_t *) (EXTI_BASE + 0x00)
 #define NVIC_ISER0  	*(volatile uint32_t *) (0xE000E100) // exti4 and exti9_5 live in pins 10 and 23.  Interrupt Set-Enable Registers have 0-31 so they both fall in the realm
 #define NVIC_ISER1  	*(volatile uint32_t *) (0xE000E104) //uart3 interrupt live in pins 39 iser1 32 - 63
 
-#define EXTI_PR			*(volatile uint32_t *) (EXTI_BASE +0x14)
+#define EXTI_PR			*(volatile uint32_t *) (EXTI_BASE + 0x14) // pending register we set this to 1 to clear the interrupt
 #define UART3_INTERRUPT *(volatile uint32_t *) (0x000000DC) // uart3 vector interrrupt address
 
 //Turns internal Pull-up or Pull-down resistors on/off
@@ -76,7 +77,20 @@
 #define GPIOC_OTYPER  *(volatile uint32_t *) (GPIOC_BASE + 0x04U)
 #define GPIOC_OSPEEDR *(volatile uint32_t *) (GPIOC_BASE +0x08)
 
-
+//GPIOC
+#define GPIOB_PUPDR   *(volatile uint32_t *)(GPIOB_BASE + 0x0CU)
+//Input Data Register (Reads voltage coming into pins)
+#define GPIOB_IDR     *(volatile uint32_t *) (GPIOB_BASE + 0x10U)
+//Sets pin modes (Input, Output, Alternate Function)
+#define GPIOB_MODER   *(volatile uint32_t *) (GPIOB_BASE + 0x00U)
+//Output Data Register (Sends voltage out to pins)
+#define GPIOB_ODR	  *(volatile uint32_t *) (GPIOB_BASE + 0x14U)
+//Alternate Function Low (Routes internal engines to Pins 0–7
+#define GPIOB_AFRL    *(volatile uint32_t *) (GPIOB_BASE + 0x20U)
+//Alternate Function High (Routes internal engines to Pins 8–15)
+#define GPIOB_AFRH    *(volatile uint32_t *) (GPIOB_BASE + 0x24U)
+#define GPIOB_OTYPER  *(volatile uint32_t *) (GPIOB_BASE + 0x04U)
+#define GPIOB_OSPEEDR *(volatile uint32_t *) (GPIOB_BASE +0x08)
 
 //Status Register (Checks if the hardware is busy or empty)
 #define USART3_SR  *(volatile uint32_t *) (USART3_BASE + 0x00U)

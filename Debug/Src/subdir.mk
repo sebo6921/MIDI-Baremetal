@@ -9,6 +9,7 @@ C_SRCS += \
 ../Src/Clock.c \
 ../Src/Delay.c \
 ../Src/InterruptButtons.c \
+../Src/PotentioMeter.c \
 ../Src/UART.c \
 ../Src/main.c \
 ../Src/ringBuffer.c \
@@ -20,6 +21,7 @@ OBJS += \
 ./Src/Clock.o \
 ./Src/Delay.o \
 ./Src/InterruptButtons.o \
+./Src/PotentioMeter.o \
 ./Src/UART.o \
 ./Src/main.o \
 ./Src/ringBuffer.o \
@@ -31,6 +33,7 @@ C_DEPS += \
 ./Src/Clock.d \
 ./Src/Delay.d \
 ./Src/InterruptButtons.d \
+./Src/PotentioMeter.d \
 ./Src/UART.d \
 ./Src/main.d \
 ./Src/ringBuffer.d \
@@ -45,7 +48,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/Buttons.cyclo ./Src/Buttons.d ./Src/Buttons.o ./Src/Buttons.su ./Src/Clock.cyclo ./Src/Clock.d ./Src/Clock.o ./Src/Clock.su ./Src/Delay.cyclo ./Src/Delay.d ./Src/Delay.o ./Src/Delay.su ./Src/InterruptButtons.cyclo ./Src/InterruptButtons.d ./Src/InterruptButtons.o ./Src/InterruptButtons.su ./Src/UART.cyclo ./Src/UART.d ./Src/UART.o ./Src/UART.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/ringBuffer.cyclo ./Src/ringBuffer.d ./Src/ringBuffer.o ./Src/ringBuffer.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/Buttons.cyclo ./Src/Buttons.d ./Src/Buttons.o ./Src/Buttons.su ./Src/Clock.cyclo ./Src/Clock.d ./Src/Clock.o ./Src/Clock.su ./Src/Delay.cyclo ./Src/Delay.d ./Src/Delay.o ./Src/Delay.su ./Src/InterruptButtons.cyclo ./Src/InterruptButtons.d ./Src/InterruptButtons.o ./Src/InterruptButtons.su ./Src/PotentioMeter.cyclo ./Src/PotentioMeter.d ./Src/PotentioMeter.o ./Src/PotentioMeter.su ./Src/UART.cyclo ./Src/UART.d ./Src/UART.o ./Src/UART.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/ringBuffer.cyclo ./Src/ringBuffer.d ./Src/ringBuffer.o ./Src/ringBuffer.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

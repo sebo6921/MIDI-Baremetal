@@ -37,14 +37,14 @@ void send_midi_cc(uint8_t control_num, uint8_t value)
 
 void initialisation()
 {
-	init_clock();
 	init_interrupt_clocks();
-	init_interrupt_buttons();
-	init_interrupt_vector_table_bit();
+	init_clock();
 	init_buttons();
 	potention_meter_init();
-
 	init_uart();
+	init_interrupt_buttons();
+	init_interrupt_vector_table_bit();
+
 }
 
 int main(void)
@@ -57,7 +57,7 @@ int main(void)
 
 	    while(1)
 	    {
-	        uart_send_string("hHello World\r\n");               // Sends a visible, printable text asterisk!
+	        // uart_send_string("hHello World\r\n");
 
 
 	        uint16_t current_adc = read_potentiometer();

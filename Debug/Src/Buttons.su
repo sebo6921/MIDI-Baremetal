@@ -1,4 +1,2 @@
 ../Src/Buttons.c:11:6:init_clock	4	static
-../Src/Buttons.c:15:14:read_potentiometer	4	static
-../Src/Buttons.c:28:6:potention_meter_init	8	static
-../Src/Buttons.c:43:6:init_buttons	4	static
+../Src/Buttons.c:17:6:init_buttons	4	static
