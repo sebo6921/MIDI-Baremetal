@@ -16,10 +16,10 @@
  ******************************************************************************
  */
 
+#include <Buttons.hpp>
 #include <InterruptButtons.h>
+#include <Registers.hpp>
 #include <stdint.h>
-#include "Registers.h"
-#include "Buttons.h"
 #include "Delay.h"
 #include "UART.h"
 
@@ -39,7 +39,9 @@ void initialisation()
 {
 	init_interrupt_clocks();
 	init_clock();
-	init_buttons();
+	init_buttons(GPIOA,4);
+	init_buttons(GPIOB,7);
+	init_buttons(GPIOC,8);
 	potention_meter_init();
 	init_uart();
 	init_interrupt_buttons();

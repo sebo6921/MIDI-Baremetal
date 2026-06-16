@@ -5,7 +5,7 @@
  *      Author: libak
  */
 // using PA7 PA8 PB4
-#include "Registers.h"
+#include <Registers.hpp>
 #include "Delay.h"
 
 void init_clock()
@@ -14,28 +14,17 @@ void init_clock()
     RCC_APB1ENR |= (1U << 18);            // Enable USART3 (bit 18)
 }
 
-void init_buttons(){
+void init_buttons(GPIO_TypeDef* gpio,uint8_t pin)
+{
+	gpio->MODER &= ~(3 << (pin*2)); // shifts the bits to where and PA7 are then clears them
 
-	GPIOA_MODER &= ~(3 << (7*2)); // shifts the bits to where and PA7 are then clears them
+	gpio->PUPDR &= ~(3 << (pin*2));
+	gpio->PUPDR |= (1 << (pin*2));// pull up reg setting it to 01 for pull up we want the button to be high when not pressed
+}
 
-	GPIOB_MODER &= ~(3 << (4*2)); // PB4
-	GPIOA_MODER &= ~(3 << (8*2)); // PA8
-
-	// On board LED PA5
+void init_on_board_led(){
 	GPIOA_MODER &= ~(3 << 5*2);  // Clear bits 10 and 11 (led)
 	GPIOA_MODER |=  (1 << 5*2);  // Set bit 10 to 1 (01 = Output)
 
-	//PB4 and PA7 PA8
-	GPIOB_PUPDR &= ~(3 << (4*2));  // clearing the bits for the pull up registor
-
-	GPIOA_PUPDR &= ~(3 << (7*2));
-
-	GPIOA_PUPDR &= ~(3 << (8*2));
-
-	GPIOA_PUPDR |= (1 << (8*2));
-
-	GPIOA_PUPDR |= (1 << (7*2));
-
-	GPIOB_PUPDR |= (1 << (4*2));// pull up reg setting it to 01 for pull up we want the button to be high when not pressed
 }
 

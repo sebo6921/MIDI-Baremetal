@@ -1,2 +1,2 @@
-Src/Clock.o: ../Src/Clock.c ../Inc/Registers.h
-../Inc/Registers.h:
+Src/Clock.o: ../Src/Clock.c ../Inc/Registers.hpp
+../Inc/Registers.hpp:

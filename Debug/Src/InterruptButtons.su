@@ -1,5 +1,0 @@
-../Src/InterruptButtons.c:13:6:init_interrupt_buttons	4	static
-../Src/InterruptButtons.c:31:6:init_interrupt_vector_table_bit	4	static
-../Src/InterruptButtons.c:37:6:init_interrupt_clocks	4	static
-../Src/InterruptButtons.c:42:6:EXTI4_IRQHandler	8	static
-../Src/InterruptButtons.c:52:6:EXTI9_5_IRQHandler	8	static

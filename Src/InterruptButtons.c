@@ -5,7 +5,7 @@
  *      Author: libak
  */
 
-#include "Registers.h"
+#include <Registers.hpp>
 #include "Delay.h"
 #include "UART.h"
 // we have programmed PB4 and PA7 and PA8 as buttons for this MIDI
@@ -44,7 +44,7 @@ void EXTI4_IRQHandler( )
 	 if ((EXTI_PR & (1 << 4)))
 		{
 		 	EXTI_PR |= (1<<4);
-			GPIOA_ODR ^= (1 << 5);  // Turn ON onboard LED
+			GPIOA->ODR ^= (1 << 5);  // Turn ON onboard LED
 			delay_cycles(320000);
 		}
 }
@@ -55,14 +55,14 @@ void EXTI9_5_IRQHandler()
 	if((EXTI_PR & (1 << 7)))
 		{
 			EXTI_PR |= (1<<7);
-			GPIOA_ODR ^= (1 << 5);  // Turn ON onboard LED
+			GPIOA->ODR ^= (1 << 5);  // Turn ON onboard LED
 			delay_cycles(320000);
 
 		}
 	if((EXTI_PR & (1 << 8)))
 			{
 				EXTI_PR |= (1<<8);
-				GPIOA_ODR ^= (1 << 5);  // Turn ON onboard LED
+				GPIOA->ODR ^= (1 << 5);  // Turn ON onboard LED
 				delay_cycles(320000);
 			}
 }

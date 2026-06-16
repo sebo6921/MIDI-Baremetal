@@ -5,11 +5,12 @@
  *      Author: libak
  */
 
-#ifndef BUTTONS_H_
-#define BUTTONS_H_
+#ifndef BUTTONS_HPP_
+#define BUTTONS_HPP_
 
 void init_clock();
-void init_buttons();
+void init_buttons(GPIO_TypeDef* gpio,uint8_t pin);
 int read_potentiometer();
 void potention_meter_init();
-#endif /* BUTTONS_H_ */
+init_on_board_led();
+#endif /* BUTTONS_HPP_ */
