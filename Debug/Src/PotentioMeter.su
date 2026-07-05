@@ -1,0 +1,2 @@
+../Src/PotentioMeter.c:10:6:potention_meter_init	16	static
+../Src/PotentioMeter.c:26:14:read_potentiometer	4	static

@@ -42,7 +42,7 @@ void initialisation()
 	init_buttons(GPIOA,4);
 	init_buttons(GPIOB,7);
 	init_buttons(GPIOC,8);
-	potention_meter_init();
+	potention_meter_init(GPIOA,1);
 	init_uart();
 	init_interrupt_buttons();
 	init_interrupt_vector_table_bit();

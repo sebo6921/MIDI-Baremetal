@@ -1,0 +1,5 @@
+../Src/InterruptButtons.c:13:6:init_interrupt_buttons	1
+../Src/InterruptButtons.c:31:6:init_interrupt_vector_table_bit	1
+../Src/InterruptButtons.c:37:6:init_interrupt_clocks	1
+../Src/InterruptButtons.c:42:6:EXTI4_IRQHandler	2
+../Src/InterruptButtons.c:52:6:EXTI9_5_IRQHandler	3

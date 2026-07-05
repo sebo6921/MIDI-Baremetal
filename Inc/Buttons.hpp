@@ -7,10 +7,10 @@
 
 #ifndef BUTTONS_HPP_
 #define BUTTONS_HPP_
+#include <stdint.h>
+#include "Registers.hpp"
 
 void init_clock();
 void init_buttons(GPIO_TypeDef* gpio,uint8_t pin);
-int read_potentiometer();
-void potention_meter_init();
-init_on_board_led();
+void init_on_board_led(GPIO_TypeDef* gpio,uint8_t pin);
 #endif /* BUTTONS_HPP_ */

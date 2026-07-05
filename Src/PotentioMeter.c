@@ -7,11 +7,11 @@
 #include <Registers.hpp>
 #include "Delay.h"
 
-void potention_meter_init()
+void potention_meter_init(GPIO_TypeDef* gpio,uint8_t pin)
 {
-	GPIOA_MODER &= ~((3<<1*2)); // clear and shift the bits PA1 since we clear we make them 00 which is teh same as input mode
-	GPIOA_MODER |= (3<<1*2);
-	GPIOA_PUPDR &= ~(3 << 1*2); // make the bits 11 which is analog input
+	gpio->MODER &= ~((3<<pin*2)); // clear and shift the bits PA1 since we clear we make them 00 which is teh same as input mode
+	gpio->MODER |= (3<<pin*2);
+	gpio->PUPDR &= ~(3 << pin*2); // make the bits 11 which is analog input
 
 	RCC_APB2ENR |= (1<<8); // turn on the adc1  bit 8
 

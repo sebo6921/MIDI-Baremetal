@@ -13,7 +13,7 @@
 #define GPIOB_BASE		0x40020400U
 #define GPIOC_BASE		0x40020800U
 
-struct GPIO_TypeDef{
+typedef struct {
     volatile uint32_t MODER;      // 0x00 Sets pin modes (Input, Output, Alternate Function)
     volatile uint32_t OTYPER;     // 0x04
     volatile uint32_t OSPEEDR;    // 0x08
@@ -24,7 +24,7 @@ struct GPIO_TypeDef{
     volatile uint32_t LCKR;       // 0x1C
     volatile uint32_t AFRL;       // 0x20
     volatile uint32_t AFRH;       // 0x24
-};
+}GPIO_TypeDef;
 
 #define GPIOA ((GPIO_TypeDef *)GPIOA_BASE)
 #define GPIOB ((GPIO_TypeDef *)GPIOB_BASE)
