@@ -16,6 +16,7 @@ Bare-metal STM32F446RE project. Started as a MIDI controller (v1), now moving in
 ---
 
 ## v2: Dawless groovebox (in progress)
+<img width="670" height="830" alt="image" src="https://github.com/user-attachments/assets/b22c2c84-bd1e-4494-a1c6-cdffcf9c0944" />
 
 **Goal:** turn this from a MIDI controller that needs a computer or DAW into a standalone box. Load sample sounds onto it, assign them to pads, play them, and record a beat, all with no computer involved.
 
